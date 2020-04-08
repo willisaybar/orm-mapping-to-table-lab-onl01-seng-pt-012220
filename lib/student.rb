@@ -32,11 +32,10 @@ class Student
   def save
     sql = <<-SQL
       INSERT INTO students (name, grade)
-      VALUES (?, ?);
-      SELECT ID AS LASTID FROM students WHERE ID= @@id
+      VALUES (?, ?)
       SQL
 
-    DB[:conn].execute(sql)
+    DB[:conn].execute(sql, self.name, self.grade)
   end
 
   def self.create(name:, grade:)
